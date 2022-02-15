@@ -35,15 +35,26 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 
 # pytest needs to be installed through pip to make sure we have a recent version
 RUN pip3 install pytest
+RUN pip3 install Flask==1.1.1
 
 # tests expect python to be available as executable 'python' not 'python3'
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # copy the phonemizer code within the docker image
-COPY . /phonemizer
+# COPY . /phonemizer
+COPY ./phonemizer /phonemizer/phonemizer
+COPY ./README.md /phonemizer/
+COPY ./setup.py /phonemizer/
+COPY ./setup.cfg /phonemizer/
+COPY ./app.py /phonemizer/
 
-# install phonemizer and run the tests
-RUN cd /phonemizer && \
-    python3 setup.py install && \
-    phonemize --version && \
-    python3 -m pytest -v test
+# install phonemizer
+RUN python3 setup.py install
+
+# Setup the directory for bind mount
+RUN mkdir /phonemizer/data
+
+EXPOSE 5000
+# CMD ["python"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+
