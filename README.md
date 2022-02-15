@@ -146,6 +146,20 @@ Then run an interactive session with:
 sudo docker run -it phonemizer /bin/bash
 ```
 
+2022.05.15: add a flask app to create a backend container
+```shell
+# build the image
+./scripts/build_image.sh 
+
+# run the container in http://localhost:5566/
+./scripts/run_container.sh 
+
+# run the http client to convert graphemes to phonemes
+python scripts/post_g2p.py "你好"
+
+# change the language of the backend by editing app.py 
+backend = EspeakBackend('cmn') # cmn is the lang ID of Mandarin
+```
 
 ### Testing
 
