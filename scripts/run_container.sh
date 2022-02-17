@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE=tou7and/phonemizer:3.0.2
+IMAGE=tou7and/phonemizer:3.0.1-mk2
 CONTAINER=phonemizer_x
 
 docker stop $CONTAINER

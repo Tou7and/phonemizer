@@ -28,7 +28,10 @@ def api_g2p():
         phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
         phones = phonemized[0]
     except Exception as error:
-        phones = "[error={}]".format(error)
+        # phones = "[error={}]".format(error)
+        print("[Error] EspeakBackend is not working.")
+        print(error)
+        return "Error: {}".format(error)
 
     results = [phones]
 
