@@ -3,8 +3,10 @@ from flask import request, jsonify
 # from flask import render_template
 from phonemizer import phonemize
 from phonemizer.backend import EspeakBackend
+from phonemizer.separator import Separator
 
-backend = EspeakBackend('cmn')
+# zh_backend = EspeakBackend('cmn')
+pro_separator = Separator(phone='-', word=' ')
 
 app = Flask(__name__)
 
@@ -20,7 +22,10 @@ def api_g2p():
         return "Error: No graphemes field provided."
     
     results = []
-    phonemized = backend.phonemize([graphemes])
+    # phonemized = backend.phonemize([graphemes])
+    
+    phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
+
     phones = phonemized[0]
     results = [phones]
 
