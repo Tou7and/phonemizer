@@ -24,9 +24,12 @@ def api_g2p():
     results = []
     # phonemized = backend.phonemize([graphemes])
     
-    phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
+    try:
+        phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
+        phones = phonemized[0]
+    except Exception as error:
+        phones = "[error={}]".format(error)
 
-    phones = phonemized[0]
     results = [phones]
 
     return jsonify(results)
