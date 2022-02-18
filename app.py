@@ -30,11 +30,9 @@ def api_g2p():
         phones = phonemized[0]
     except Exception as error:
         print(error)
-        print("[Error] EspeakBackend is not working, re-import the modules...")
-        from phonemizer import phonemize
-        from phonemizer.backend import EspeakBackend
-        from phonemizer.separator import Separator
-        phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
+        print("[Error] EspeakBackend is not working, creating a new backend")
+        backend = EspeakBackend('cmn-us')
+        phonemized = backend.phonemize([graphemes], separator=pro_separator)
         phones = phonemized[0]
 
     results = [phones]
