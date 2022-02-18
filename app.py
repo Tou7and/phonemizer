@@ -23,17 +23,17 @@ def api_g2p():
         return "Error: No graphemes field provided."
     
     results = []
-    # phonemized = backend.phonemize([graphemes])
-    
-    try:
-        phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
-        phones = phonemized[0]
-    except Exception as error:
-        print(error)
-        print("[Error] EspeakBackend is not working, creating a new backend")
-        backend = EspeakBackend('cmn-us')
-        phonemized = backend.phonemize([graphemes], separator=pro_separator)
-        phones = phonemized[0]
+    phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
+
+    # try:
+    #     phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
+    #     phones = phonemized[0]
+    # except Exception as error:
+    #     print(error)
+    #     print("[Error] EspeakBackend is not working, creating a new backend")
+    #     backend = EspeakBackend('cmn-us')
+    #     phonemized = backend.phonemize([graphemes], separator=pro_separator)
+    #     phones = phonemized[0]
 
     results = [phones]
 
