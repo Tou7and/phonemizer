@@ -24,6 +24,7 @@ def api_g2p():
     
     results = []
     phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
+    phones = phonemized[0]
 
     # try:
     #     phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
@@ -36,7 +37,6 @@ def api_g2p():
     #     phones = phonemized[0]
 
     results = [phones]
-
     return jsonify(results)
 
 
