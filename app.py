@@ -1,3 +1,4 @@
+import sys
 from flask import Flask
 from flask import request, jsonify
 # from flask import render_template
@@ -23,6 +24,10 @@ def api_g2p():
     
     results = []
     # phonemized = backend.phonemize([graphemes])
+    sys_status = 0
+    if sys_status != 0:
+        # stop the server if something is wrong
+        sys.exit(sys_status)
     
     try:
         phonemized = phonemize([graphemes], backend='espeak', language='cmn', separator=pro_separator)
@@ -31,6 +36,7 @@ def api_g2p():
         # phones = "[error={}]".format(error)
         print("[Error] EspeakBackend is not working.")
         print(error)
+        sys_status = 1
         return "Error: {}".format(error)
 
     results = [phones]
