@@ -46,10 +46,11 @@ COPY ./phonemizer /phonemizer/phonemizer
 COPY ./README.md /phonemizer/
 COPY ./setup.py /phonemizer/
 COPY ./setup.cfg /phonemizer/
-COPY ./app.py /phonemizer/
 
 # install phonemizer
 RUN python3 setup.py install
+
+COPY ./app.py /phonemizer/
 
 # Setup the directory for bind mount
 RUN mkdir /phonemizer/data
